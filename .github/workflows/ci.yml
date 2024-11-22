@@ -20,10 +20,11 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Instalar dependências
+      - name: Criar e ativar ambiente virtual
         run: |
+          python -m venv venv
+          source venv/bin/activate
           pip install -r requirements.txt
-          pip install pytest
 
   test:
     runs-on: ubuntu-latest
@@ -32,8 +33,16 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      - name: Verificar pytest
+        run: pytest --version
+
+      - name: Listar arquivos de teste
+        run: ls -R
+
       - name: Rodar testes
-        run: pytest
+        run: |
+          source venv/bin/activate
+          pytest
 
   deploy:
     runs-on: ubuntu-latest
