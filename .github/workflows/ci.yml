@@ -59,11 +59,9 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Configurar Vercel CLI
+      - name: Instalar o Vercel CLI
         run: |
-          curl -sL https://vercel.com/download -o vercel.tar.gz
-          tar -xvzf vercel.tar.gz
-          sudo mv vercel /usr/local/bin
+          npm install -g vercel
 
       - name: Deploy para Vercel
         run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
