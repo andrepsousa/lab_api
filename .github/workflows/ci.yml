@@ -33,8 +33,16 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      - name: Criar e ativar ambiente virtual
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
       - name: Verificar pytest
-        run: pytest --version
+        run: |
+          source venv/bin/activate
+          pytest --version
 
       - name: Listar arquivos de teste
         run: ls -R
